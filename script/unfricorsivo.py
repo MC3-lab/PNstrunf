@@ -32,7 +32,7 @@ import copy
 
 def help():
     print("Instruction to run the program:")
-    print(" |python3 tina_tree_exp.py [file with the net]")
+    print(" |python3 unfricorsivo.py -n [file with the net]")
     print(" |")
     print(" |Mandatory flag and argument:")
     print(" |-n or --net   input_path + file_name ")

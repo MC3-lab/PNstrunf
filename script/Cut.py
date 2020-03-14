@@ -53,9 +53,9 @@ def graph_construction(albero):
     return ad
 
 def stampa_grafo(grafo):
-    f = open("grafo", "w")
+#    f = open("grafo", "w")
     for i in grafo:
-        print(i[0], "  ", i[1], file = f)
+        print(i[0], "  ", i[1])# file = f)
 
 
 def list_to_Cut(lista):

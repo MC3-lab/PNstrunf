@@ -1,0 +1,375 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module unfricorsivo</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>unfricorsivo</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/federica/Documents/giochi/PNstrunf/script/unfricorsivo.py">/home/federica/Documents/giochi/PNstrunf/script/unfricorsivo.py</a></font></td></tr></table>
+    <p><tt>Winning&nbsp;strategy&nbsp;for&nbsp;the&nbsp;reachability&nbsp;of&nbsp;a&nbsp;target&nbsp;transition.&nbsp;<br>
+&nbsp;<br>
+Given&nbsp;an&nbsp;elementary&nbsp;distributed&nbsp;Petri&nbsp;net&nbsp;with&nbsp;a&nbsp;set&nbsp;of&nbsp;controllable&nbsp;<br>
+transitions,&nbsp;and&nbsp;for&nbsp;which&nbsp;a&nbsp;target&nbsp;transition&nbsp;is&nbsp;specified,&nbsp;the&nbsp;<br>
+program&nbsp;verifies&nbsp;if&nbsp;a&nbsp;user&nbsp;is&nbsp;always&nbsp;able&nbsp;to&nbsp;fire&nbsp;once&nbsp;the&nbsp;target&nbsp;<br>
+transition&nbsp;in&nbsp;the&nbsp;net,&nbsp;by&nbsp;controlling&nbsp;just&nbsp;the&nbsp;set&nbsp;of&nbsp;controllable&nbsp;<br>
+transitions.&nbsp;In&nbsp;case&nbsp;of&nbsp;positive&nbsp;answer,&nbsp;the&nbsp;program&nbsp;provides&nbsp;a&nbsp;<br>
+winning&nbsp;strategy&nbsp;for&nbsp;the&nbsp;user.&nbsp;<br>
+We&nbsp;assume&nbsp;that&nbsp;the&nbsp;user&nbsp;observes&nbsp;all&nbsp;the&nbsp;occurrences&nbsp;of&nbsp;the&nbsp;transitions&nbsp;<br>
+and&nbsp;controls&nbsp;a&nbsp;sequential&nbsp;component&nbsp;of&nbsp;the&nbsp;Petri&nbsp;net&nbsp;system.<br>
+&nbsp;<br>
+Since&nbsp;the&nbsp;program&nbsp;represents&nbsp;the&nbsp;net&nbsp;as&nbsp;an&nbsp;incidence&nbsp;matrix,&nbsp;&nbsp;in&nbsp;the&nbsp;<br>
+current&nbsp;version&nbsp;side&nbsp;conditions&nbsp;are&nbsp;not&nbsp;allowed.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+net:&nbsp;ndr&nbsp;file<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;net&nbsp;must&nbsp;be&nbsp;provided&nbsp;in&nbsp;ndr&nbsp;format.&nbsp;This&nbsp;is&nbsp;a&nbsp;textual&nbsp;format&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;to&nbsp;describe&nbsp;graphics&nbsp;produced&nbsp;with&nbsp;nd&nbsp;editor&nbsp;in&nbsp;TINA.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;More&nbsp;information&nbsp;at:&nbsp;<a href="http://projects.laas.fr/tina/manuals/formats.html">http://projects.laas.fr/tina/manuals/formats.html</a>.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="string.html">string</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-Elimina"><strong>Elimina</strong></a>(lista)</dt><dd><tt>Deleting&nbsp;repeated&nbsp;elements&nbsp;from&nbsp;a&nbsp;list.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+lista:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;that&nbsp;could&nbsp;have&nbsp;repeated&nbsp;elements&nbsp;inside<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+lista:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;in&nbsp;which&nbsp;all&nbsp;the&nbsp;elements&nbsp;are&nbsp;different</tt></dd></dl>
+ <dl><dt><a name="-calcola_abilitati"><strong>calcola_abilitati</strong></a>(rete, marcatura)</dt><dd><tt>Compute&nbsp;enabled&nbsp;transitions.<br>
+&nbsp;<br>
+Given&nbsp;the&nbsp;net&nbsp;'rete'&nbsp;and&nbsp;the&nbsp;marking&nbsp;'marcatura',&nbsp;the&nbsp;enabled&nbsp;<br>
+transitions&nbsp;in&nbsp;'marcatura'&nbsp;are&nbsp;those&nbsp;that&nbsp;have&nbsp;all&nbsp;their&nbsp;<br>
+precondition&nbsp;in&nbsp;'marcatura'.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+rete:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+marcatura:&nbsp;set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Current&nbsp;marking&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+np.array<br>
+&nbsp;&nbsp;&nbsp;array&nbsp;in&nbsp;which&nbsp;is&nbsp;specified&nbsp;wether&nbsp;every&nbsp;transition&nbsp;is&nbsp;enabled&nbsp;<br>
+&nbsp;&nbsp;&nbsp;in&nbsp;'marcatura'</tt></dd></dl>
+ <dl><dt><a name="-calcola_precond"><strong>calcola_precond</strong></a>(net, ev, cut)</dt><dd><tt>Computation&nbsp;of&nbsp;the&nbsp;precondition&nbsp;of&nbsp;a&nbsp;given&nbsp;event.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+net:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+ev:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Event&nbsp;of&nbsp;which&nbsp;we&nbsp;want&nbsp;to&nbsp;compute&nbsp;the&nbsp;preconditions<br>
+cut:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cut&nbsp;in&nbsp;which&nbsp;there&nbsp;are&nbsp;the&nbsp;preconditions&nbsp;of&nbsp;'ev'<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+precond:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;event's&nbsp;preconditions&nbsp;denoted&nbsp;as&nbsp;list&nbsp;of&nbsp;pair&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place-indices</tt></dd></dl>
+ <dl><dt><a name="-calcola_taglio_successivo"><strong>calcola_taglio_successivo</strong></a>(taglio_prec, evento, rete, ind, nuovo<font color="#909090">=True</font>)</dt><dd><tt>Compute&nbsp;the&nbsp;cut&nbsp;following&nbsp;the&nbsp;occurrence&nbsp;if&nbsp;a&nbsp;given&nbsp;transition.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+taglio_prec:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cut&nbsp;from&nbsp;which&nbsp;the&nbsp;transition&nbsp;'evento'&nbsp;occurs&nbsp;<br>
+evento:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Event&nbsp;that&nbsp;is&nbsp;added&nbsp;to&nbsp;the&nbsp;prefix<br>
+rete:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+ind:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;last&nbsp;cut&nbsp;that&nbsp;has&nbsp;been&nbsp;considered<br>
+nuovo:&nbsp;bool,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;indicate&nbsp;if&nbsp;the&nbsp;event&nbsp;is&nbsp;considered&nbsp;for&nbsp;the&nbsp;first&nbsp;time&nbsp;or&nbsp;it&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;was&nbsp;already&nbsp;added&nbsp;to&nbsp;the&nbsp;unfolding<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+disp:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cut&nbsp;in&nbsp;the&nbsp;unfolding&nbsp;that&nbsp;follows&nbsp;the&nbsp;occurrence&nbsp;of&nbsp;'evento'</tt></dd></dl>
+ <dl><dt><a name="-confronta_tagli"><strong>confronta_tagli</strong></a>(taglio, lista_tagli)</dt><dd><tt>Check&nbsp;if&nbsp;a&nbsp;cut&nbsp;is&nbsp;already&nbsp;in&nbsp;a&nbsp;list.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+taglio:&nbsp;list<br>
+&nbsp;&nbsp;Cut&nbsp;to&nbsp;look&nbsp;for&nbsp;in&nbsp;the&nbsp;list<br>
+lista_tagli:&nbsp;list<br>
+&nbsp;&nbsp;list&nbsp;in&nbsp;which&nbsp;we&nbsp;look&nbsp;for&nbsp;the&nbsp;cut<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+bool<br>
+&nbsp;&nbsp;True&nbsp;if&nbsp;the&nbsp;cut&nbsp;is&nbsp;in&nbsp;the&nbsp;list,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+ <dl><dt><a name="-confronto"><strong>confronto</strong></a>(x, y, v, w)</dt><dd><tt>Comparison&nbsp;of&nbsp;two&nbsp;cuts:&nbsp;[x,&nbsp;y]&nbsp;and&nbsp;[v,&nbsp;w].&nbsp;<br>
+&nbsp;&nbsp;<br>
+Parameters<br>
+----------<br>
+x:&nbsp;list<br>
+&nbsp;&nbsp;places&nbsp;in&nbsp;the&nbsp;first&nbsp;cut<br>
+y:&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;indices&nbsp;of&nbsp;the&nbsp;places&nbsp;in&nbsp;the&nbsp;first&nbsp;cut<br>
+v:&nbsp;list<br>
+&nbsp;&nbsp;places&nbsp;in&nbsp;the&nbsp;second&nbsp;cut<br>
+w:&nbsp;list<br>
+&nbsp;&nbsp;indices&nbsp;of&nbsp;the&nbsp;places&nbsp;in&nbsp;the&nbsp;second&nbsp;cut<br>
+&nbsp;<br>
+Returns&nbsp;<br>
+-------<br>
+bool<br>
+&nbsp;&nbsp;True&nbsp;if&nbsp;the&nbsp;cuts&nbsp;are&nbsp;equals,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+ <dl><dt><a name="-explore_cut_c"><strong>explore_cut_c</strong></a>(net, k, target, st, tree, enab_c, cut, M, ind, scattati)</dt><dd><tt>Function&nbsp;used&nbsp;in&nbsp;case&nbsp;of&nbsp;repeated&nbsp;marking&nbsp;in&nbsp;a&nbsp;play.&nbsp;<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;same&nbsp;marking&nbsp;appears&nbsp;twice&nbsp;or&nbsp;more&nbsp;in&nbsp;a&nbsp;play,&nbsp;this&nbsp;<br>
+function&nbsp;check&nbsp;if&nbsp;there&nbsp;are&nbsp;enabled&nbsp;transitions&nbsp;that&nbsp;are&nbsp;concurrent&nbsp;<br>
+with&nbsp;all&nbsp;the&nbsp;transitions&nbsp;occurred&nbsp;between&nbsp;the&nbsp;first&nbsp;and&nbsp;the&nbsp;last&nbsp;<br>
+occurrence&nbsp;of&nbsp;the&nbsp;repeated&nbsp;marking.&nbsp;If&nbsp;there&nbsp;are,&nbsp;they&nbsp;are&nbsp;added&nbsp;to&nbsp;<br>
+the&nbsp;prefix,&nbsp;and&nbsp;the&nbsp;function&nbsp;'tree_exploration'&nbsp;is&nbsp;called&nbsp;again.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+net:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+k:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Column&nbsp;number&nbsp;of&nbsp;the&nbsp;first&nbsp;controllable&nbsp;transition<br>
+target:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Column&nbsp;number&nbsp;of&nbsp;the&nbsp;target<br>
+st:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;cut-transition&nbsp;describing&nbsp;the&nbsp;strategy&nbsp;already&nbsp;computed<br>
+tree:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;cut-transition-cut&nbsp;describing&nbsp;the&nbsp;prefix&nbsp;already&nbsp;computed<br>
+enab_c:&nbsp;np.array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Array&nbsp;filled&nbsp;with&nbsp;0&nbsp;in&nbsp;the&nbsp;positions&nbsp;in&nbsp;which&nbsp;the&nbsp;associated&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;transition&nbsp;is&nbsp;not&nbsp;enabled&nbsp;in&nbsp;the&nbsp;cut&nbsp;'cut',&nbsp;1&nbsp;in&nbsp;the&nbsp;postitions&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;the&nbsp;enabled&nbsp;transitions.<br>
+cut:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cut&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;analysed&nbsp;<br>
+M:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;already&nbsp;visited&nbsp;in&nbsp;the&nbsp;current&nbsp;play&nbsp;<br>
+ind:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Identifier&nbsp;of&nbsp;the&nbsp;cut&nbsp;in&nbsp;the&nbsp;play&nbsp;<br>
+scattati:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;already&nbsp;occurred&nbsp;in&nbsp;the&nbsp;unfolding<br>
+contatore:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;counts&nbsp;the&nbsp;number&nbsp;of&nbsp;steps&nbsp;that&nbsp;are&nbsp;necessary&nbsp;to&nbsp;arrive&nbsp;at&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;result<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+w2:&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;states&nbsp;the&nbsp;existence&nbsp;of&nbsp;a&nbsp;strategy&nbsp;from&nbsp;the&nbsp;input&nbsp;cut&nbsp;<br>
+st:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;winning&nbsp;strategy,&nbsp;if&nbsp;there&nbsp;is&nbsp;one<br>
+tree:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;of&nbsp;the&nbsp;unfolding&nbsp;represented&nbsp;as&nbsp;list&nbsp;of&nbsp;triples&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cut-transition-cut&nbsp;&nbsp;<br>
+True<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;states&nbsp;that&nbsp;a&nbsp;cycle&nbsp;was&nbsp;detected</tt></dd></dl>
+ <dl><dt><a name="-extract"><strong>extract</strong></a>(E)</dt><dd><tt>Extraction&nbsp;of&nbsp;the&nbsp;first&nbsp;element&nbsp;of&nbsp;a&nbsp;list.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+E:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;enabled&nbsp;events<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+Returns<br>
+-------<br>
+e0:&nbsp;int&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;First&nbsp;element&nbsp;of&nbsp;the&nbsp;list&nbsp;'E'<br>
+E:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;list&nbsp;modified&nbsp;without&nbsp;the&nbsp;first&nbsp;element</tt></dd></dl>
+ <dl><dt><a name="-f"><strong>f</strong></a>(net, enab_c, cut, M)</dt><dd><tt>Check&nbsp;if&nbsp;there&nbsp;are&nbsp;transitions&nbsp;concurrent&nbsp;with&nbsp;cycles.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;verifies&nbsp;which&nbsp;events&nbsp;are&nbsp;enabled&nbsp;in&nbsp;all&nbsp;the&nbsp;markings&nbsp;<br>
+after&nbsp;the&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;the&nbsp;marking&nbsp;associated&nbsp;to&nbsp;'cut'.<br>
+&nbsp;<br>
+Parameters<br>
+---------<br>
+net:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+enab_c:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;enabled&nbsp;transitions&nbsp;in&nbsp;'cut'<br>
+cut:&nbsp;set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Marking&nbsp;of&nbsp;the&nbsp;cut&nbsp;that&nbsp;we&nbsp;are&nbsp;currently&nbsp;considering&nbsp;and&nbsp;whose&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;associated&nbsp;marking&nbsp;is&nbsp;repeated<br>
+M:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;already&nbsp;visited&nbsp;in&nbsp;the&nbsp;play&nbsp;<br>
+&nbsp;<br>
+Rerutns<br>
+--------<br>
+E:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;enabled&nbsp;transitions&nbsp;that&nbsp;are&nbsp;concurrent&nbsp;with&nbsp;the&nbsp;cycle</tt></dd></dl>
+ <dl><dt><a name="-fill_cycles"><strong>fill_cycles</strong></a>(st, gr_ad, inCut)</dt><dd><tt>The&nbsp;function&nbsp;assigns&nbsp;the&nbsp;same&nbsp;choice&nbsp;to&nbsp;every&nbsp;marking&nbsp;of&nbsp;a&nbsp;cycle.&nbsp;<br>
+&nbsp;<br>
+Given&nbsp;the&nbsp;strategy&nbsp;constructed&nbsp;by&nbsp;'tree_exploration'&nbsp;and&nbsp;the&nbsp;prefix&nbsp;<br>
+of&nbsp;the&nbsp;unfolding,&nbsp;this&nbsp;function&nbsp;detects&nbsp;the&nbsp;presence&nbsp;of&nbsp;cycles&nbsp;and&nbsp;<br>
+assigns&nbsp;the&nbsp;same&nbsp;choice&nbsp;to&nbsp;all&nbsp;the&nbsp;markings&nbsp;of&nbsp;the&nbsp;cycle.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+st:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;Cut-event&nbsp;with&nbsp;the&nbsp;choices&nbsp;returned&nbsp;by&nbsp;the&nbsp;call&nbsp;in&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;of&nbsp;'tree_exploration'<br>
+gr_ad:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;of&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;unfolding<br>
+inCut:&nbsp;Cut<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initial&nbsp;cut&nbsp;of&nbsp;the&nbsp;unfolding<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+st1:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Complete&nbsp;strategy&nbsp;for&nbsp;the&nbsp;net,&nbsp;given&nbsp;the&nbsp;target&nbsp;and&nbsp;the&nbsp;set&nbsp;of&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;controllable&nbsp;transitions</tt></dd></dl>
+ <dl><dt><a name="-help"><strong>help</strong></a>()</dt></dl>
+ <dl><dt><a name="-input_parameters"><strong>input_parameters</strong></a>(rete)</dt><dd><tt>Extraction&nbsp;of&nbsp;the&nbsp;useful&nbsp;data&nbsp;from&nbsp;the&nbsp;file&nbsp;.ndr.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;asks&nbsp;the&nbsp;user&nbsp;which&nbsp;are&nbsp;the&nbsp;controllable&nbsp;transitions&nbsp;<br>
+and&nbsp;the&nbsp;target,&nbsp;and&nbsp;computes&nbsp;the&nbsp;incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+rete:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;the&nbsp;string&nbsp;there&nbsp;is&nbsp;the&nbsp;path&nbsp;of&nbsp;the&nbsp;file&nbsp;with&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;of&nbsp;the&nbsp;net<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+matrice_aux:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Matrix&nbsp;describing&nbsp;the&nbsp;relations&nbsp;between&nbsp;places&nbsp;and&nbsp;transitions&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;the&nbsp;net,&nbsp;and&nbsp;their&nbsp;relation&nbsp;with&nbsp;the&nbsp;incidence&nbsp;matrix<br>
+m:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix<br>
+control:&nbsp;int&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;first&nbsp;column&nbsp;with&nbsp;a&nbsp;controllable&nbsp;transition<br>
+t:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;target&nbsp;transition<br>
+s:&nbsp;set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initial&nbsp;marking</tt></dd></dl>
+ <dl><dt><a name="-parseArguments"><strong>parseArguments</strong></a>(parameter)</dt><dd><tt>Function&nbsp;that&nbsp;interprets&nbsp;input&nbsp;parameters.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+parameter:&nbsp;argv<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;parameters<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+options:&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Classification&nbsp;of&nbsp;the&nbsp;input</tt></dd></dl>
+ <dl><dt><a name="-tree_exploration"><strong>tree_exploration</strong></a>(net, k, target, cut, M, e, st, tree, ind, scattati, cicli)</dt><dd><tt>Recursive&nbsp;function&nbsp;which&nbsp;explore&nbsp;a&nbsp;cut&nbsp;in&nbsp;the&nbsp;unfolding.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;find&nbsp;the&nbsp;existence&nbsp;of&nbsp;a&nbsp;winning&nbsp;strategy&nbsp;by&nbsp;exploring&nbsp;<br>
+all&nbsp;the&nbsp;prefixes&nbsp;of&nbsp;palys&nbsp;in&nbsp;the&nbsp;unfolding.&nbsp;<br>
+For&nbsp;every&nbsp;play,&nbsp;it&nbsp;explores&nbsp;first&nbsp;uncontrollable&nbsp;events,&nbsp;waiting&nbsp;as&nbsp;<br>
+much&nbsp;as&nbsp;possible&nbsp;before&nbsp;firing&nbsp;every&nbsp;controllable&nbsp;event.&nbsp;&nbsp;<br>
+&nbsp;<br>
+Parameters<br>
+---------<br>
+net:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+k:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Column&nbsp;number&nbsp;of&nbsp;the&nbsp;first&nbsp;controllable&nbsp;transition<br>
+target:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Column&nbsp;number&nbsp;of&nbsp;the&nbsp;target&nbsp;transition<br>
+cut:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;formed&nbsp;by&nbsp;two&nbsp;lists,&nbsp;the&nbsp;first&nbsp;describing&nbsp;the&nbsp;current&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;marking,&nbsp;the&nbsp;second&nbsp;with&nbsp;the&nbsp;indices&nbsp;of&nbsp;places&nbsp;in&nbsp;the&nbsp;marking<br>
+M:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;visited&nbsp;in&nbsp;the&nbsp;current&nbsp;play&nbsp;<br>
+e:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Last&nbsp;event&nbsp;added&nbsp;in&nbsp;the&nbsp;current&nbsp;play<br>
+st:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;pair&nbsp;'marking'-'transition&nbsp;to&nbsp;choose'&nbsp;which&nbsp;represent&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;strategy&nbsp;already&nbsp;computed&nbsp;<br>
+tree:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;triples&nbsp;cut-event-cut&nbsp;that&nbsp;represent&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;unfolding<br>
+ind:&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;last&nbsp;cut&nbsp;that&nbsp;has&nbsp;been&nbsp;considered<br>
+scattati:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;that&nbsp;are&nbsp;already&nbsp;part&nbsp;of&nbsp;the&nbsp;prefix<br>
+contatore:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Counter&nbsp;of&nbsp;calls&nbsp;to&nbsp;the&nbsp;function&nbsp;'tree_exploration'<br>
+cicli:&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;a&nbsp;cycle&nbsp;has&nbsp;been&nbsp;already&nbsp;detected,&nbsp;False&nbsp;otherwise<br>
+&nbsp;<br>
+Returns&nbsp;<br>
+-------<br>
+w2:&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;states&nbsp;if&nbsp;there&nbsp;is&nbsp;a&nbsp;winning&nbsp;strategy,&nbsp;knowing&nbsp;that&nbsp;the&nbsp;play&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reached&nbsp;the&nbsp;cut&nbsp;'cut'.<br>
+st:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Winning&nbsp;strategy&nbsp;(if&nbsp;there&nbsp;is&nbsp;one)&nbsp;&nbsp;<br>
+tree:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;prefixes&nbsp;of&nbsp;the&nbsp;winning&nbsp;plays&nbsp;&nbsp;<br>
+cicli:&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;a&nbsp;cycle&nbsp;was&nbsp;detected,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+ <dl><dt><a name="-verifica_ab"><strong>verifica_ab</strong></a>(net, m, e)</dt><dd><tt>Given&nbsp;a&nbsp;transition,&nbsp;check&nbsp;if&nbsp;it&nbsp;is&nbsp;enabled&nbsp;in&nbsp;a&nbsp;certain&nbsp;marking.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+net:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix<br>
+m:&nbsp;list/set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Marking<br>
+e:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Transition&nbsp;<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;'e'&nbsp;is&nbsp;enabled&nbsp;in&nbsp;'m',&nbsp;False&nbsp;otherwise</tt></dd></dl>
+ <dl><dt><a name="-visualizza_strategia"><strong>visualizza_strategia</strong></a>(st, m)</dt><dd><tt>From&nbsp;the&nbsp;incidence&nbsp;matrix&nbsp;to&nbsp;the&nbsp;name&nbsp;in&nbsp;the&nbsp;.ndr&nbsp;file.&nbsp;<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;takes&nbsp;the&nbsp;strategy&nbsp;in&nbsp;which&nbsp;places&nbsp;and&nbsp;transitions&nbsp;<br>
+are&nbsp;described&nbsp;with&nbsp;the&nbsp;numers&nbsp;of&nbsp;rows&nbsp;and&nbsp;columns&nbsp;in&nbsp;the&nbsp;incidence&nbsp;<br>
+matrix&nbsp;and&nbsp;returns&nbsp;the&nbsp;strategy&nbsp;in&nbsp;which&nbsp;places&nbsp;and&nbsp;transtions&nbsp;have&nbsp;<br>
+the&nbsp;same&nbsp;name&nbsp;as&nbsp;in&nbsp;the&nbsp;.ndr&nbsp;file.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+st:&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Strategy&nbsp;in&nbsp;which&nbsp;places&nbsp;and&nbsp;transitions&nbsp;are&nbsp;numbers&nbsp;<br>
+m:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Incidence&nbsp;matrix&nbsp;in&nbsp;which&nbsp;the&nbsp;name&nbsp;of&nbsp;places&nbsp;and&nbsp;transition&nbsp;is&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;specified<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+strategy:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Strategy&nbsp;in&nbsp;which&nbsp;the&nbsp;name&nbsp;of&nbsp;places&nbsp;and&nbsp;transitions&nbsp;are&nbsp;as&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;.ndr&nbsp;file</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>argv</strong> = ['/usr/bin/pydoc', '-w', 'unfricorsivo']</td></tr></table>
+</body></html>

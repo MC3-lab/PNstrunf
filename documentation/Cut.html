@@ -1,0 +1,122 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Cut</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Cut</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/federica/Documents/giochi/PNstrunf/script/Cut.py">/home/federica/Documents/giochi/PNstrunf/script/Cut.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="__builtin__.html#object">__builtin__.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="Cut.html#Cut">Cut</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Cut">class <strong>Cut</strong></a>(<a href="__builtin__.html#object">__builtin__.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;describe&nbsp;a&nbsp;cut&nbsp;of&nbsp;the&nbsp;unfolding.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Cut-__eq__"><strong>__eq__</strong></a>(self, cut)</dt><dd><tt>Establish&nbsp;if&nbsp;two&nbsp;cuts&nbsp;are&nbsp;equals.</tt></dd></dl>
+
+<dl><dt><a name="Cut-__init__"><strong>__init__</strong></a>(self, places<font color="#909090">={}</font>)</dt></dl>
+
+<dl><dt><a name="Cut-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Print&nbsp;the&nbsp;cuts.</tt></dd></dl>
+
+<dl><dt><a name="Cut-marking"><strong>marking</strong></a>(self)</dt><dd><tt>Return&nbsp;the&nbsp;marking&nbsp;associate&nbsp;with&nbsp;the&nbsp;cut.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-cammini"><strong>cammini</strong></a>(grafo, taglio, iniz, cammino<font color="#909090">=[]</font>, eventi<font color="#909090">=[]</font>, lsc<font color="#909090">=[]</font>, lse<font color="#909090">=[]</font>)</dt><dd><tt>Computation&nbsp;of&nbsp;cuts&nbsp;and&nbsp;events&nbsp;crossed&nbsp;to&nbsp;arrive&nbsp;in&nbsp;a&nbsp;given&nbsp;cut.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;compute&nbsp;the&nbsp;lists&nbsp;of&nbsp;cuts&nbsp;and&nbsp;events&nbsp;that&nbsp;are&nbsp;in&nbsp;the&nbsp;<br>
+past&nbsp;of&nbsp;the&nbsp;cut&nbsp;'taglio'<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+grafo:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;prefix<br>
+taglio:&nbsp;<a href="#Cut">Cut</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Cut">Cut</a>&nbsp;of&nbsp;which&nbsp;the&nbsp;function&nbsp;investigates&nbsp;the&nbsp;past<br>
+iniz:&nbsp;<a href="#Cut">Cut</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initial&nbsp;cut&nbsp;in&nbsp;the&nbsp;unfolding<br>
+cammino:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;cuts&nbsp;in&nbsp;a&nbsp;path<br>
+eventi:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;in&nbsp;a&nbsp;path<br>
+lsc:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;paths&nbsp;described&nbsp;with&nbsp;cuts<br>
+lse:&nbsp;list,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;paths&nbsp;described&nbsp;with&nbsp;events<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+lse:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;paths&nbsp;described&nbsp;with&nbsp;events<br>
+lsc:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;paths&nbsp;described&nbsp;with&nbsp;cuts</tt></dd></dl>
+ <dl><dt><a name="-graph_construction"><strong>graph_construction</strong></a>(albero)</dt><dd><tt>Construction&nbsp;of&nbsp;the&nbsp;adjacency&nbsp;matrix.<br>
+&nbsp;<br>
+From&nbsp;the&nbsp;set&nbsp;of&nbsp;triples&nbsp;describing&nbsp;the&nbsp;prefix,&nbsp;this&nbsp;function&nbsp;<br>
+construct&nbsp;the&nbsp;adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;prefix.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+albero:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;triples&nbsp;describing&nbsp;the&nbsp;prefix<br>
+ad:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;unfolding</tt></dd></dl>
+ <dl><dt><a name="-list_to_Cut"><strong>list_to_Cut</strong></a>(lista)</dt><dd><tt>Transformation&nbsp;of&nbsp;a&nbsp;list&nbsp;in&nbsp;a&nbsp;<a href="#Cut">Cut</a>&nbsp;<a href="__builtin__.html#object">object</a>.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+lista:&nbsp;list&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;describing&nbsp;a&nbsp;cut<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+taglio:&nbsp;<a href="#Cut">Cut</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Cut">Cut</a>&nbsp;<a href="__builtin__.html#object">object</a>&nbsp;describing&nbsp;a&nbsp;cut</tt></dd></dl>
+ <dl><dt><a name="-stampa_grafo"><strong>stampa_grafo</strong></a>(grafo)</dt></dl>
+</td></tr></table>
+</body></html>
