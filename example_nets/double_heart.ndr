@@ -9,8 +9,8 @@ t 250.0 130.0 t2 0 w n
 p 385.0 215.0 p5 0 n
 t 380.0 130.0 t3 0 w n
 p 555.0 50.0 p6 1 n
-t 480.0 120.0 t4 0 w n
-t 615.0 125.0 t5 0 w n
+t 480.0 120.0 t4c 0 w n
+t 615.0 125.0 t5c 0 w n
 t 135.0 310.0 t6 0 w n
 t 220.0 305.0 t7 0 w n
 t 315.0 310.0 t8 0 w n
@@ -22,40 +22,40 @@ p 605.0 380.0 p8 0 n
 t 205.0 475.0 t10 0 w n
 t 400.0 490.0 t11 0 w n
 p 295.0 525.0 p11 0 n
-t 385.0 560.0 t12 0 w n
+t 385.0 560.0 target 0 w n
 p 485.0 565.0 p12 0 n
-e t12 p12 1 n
-e p11 t12 1 n
-e t11 p11 1 n
-e t10 p11 1 n
-e p8 t11 1 n
-e p10 t11 1 n
-e p7 t10 1 n
-e p9 t10 1 n
-e t8 p9 1 n
-e t9 p9 1 n
-e t7 p10 1 n
-e t6 p10 1 n
-e p5 t8 1 n
-e p2 t8 1 n
-e p3 t7 1 n
-e p2 t7 1 n
-e p5 t6 1 n
-e p4 t6 1 n
-e p3 t9 1 n
-e p4 t9 1 n
-e t5 p8 1 n
-e t4 p7 1 n
-e p6 t5 1 n
-e p6 t4 1 n
-e p1 t3 1 n
-e p1 t2 1 n
-e t3 p5 1 n
-e t2 p3 1 n
-e t1 p2 1 n
-e t0 p4 1 n
-e p0 t1 1 n
 e p0 t0 1 n
+e p0 t1 1 n
+e t0 p4 1 n
+e t1 p2 1 n
+e t2 p3 1 n
+e t3 p5 1 n
+e p1 t2 1 n
+e p1 t3 1 n
+e p6 t4c 1 n
+e p6 t5c 1 n
+e t4c p7 1 n
+e t5c p8 1 n
+e p4 t9 1 n
+e p3 t9 1 n
+e p4 t6 1 n
+e p5 t6 1 n
+e p2 t7 1 n
+e p3 t7 1 n
+e p2 t8 1 n
+e p5 t8 1 n
+e t6 p10 1 n
+e t7 p10 1 n
+e t9 p9 1 n
+e t8 p9 1 n
+e p9 t10 1 n
+e p7 t10 1 n
+e p10 t11 1 n
+e p8 t11 1 n
+e t10 p11 1 n
+e t11 p11 1 n
+e p11 target 1 n
+e target p12 1 n
 h double_heart
 
 

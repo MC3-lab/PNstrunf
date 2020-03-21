@@ -2,8 +2,8 @@ p 255.0 55.0 p0 1 n
 p 785.0 50.0 p1 1 n
 t 210.0 110.0 t0 0 w n
 t 290.0 105.0 t1 0 w n
-t 740.0 105.0 t2 0 w n
-t 835.0 105.0 t3 0 w n
+t 740.0 105.0 t2c 0 w n
+t 835.0 105.0 t3c 0 w n
 p 200.0 170.0 p2 0 n
 p 295.0 175.0 p3 0 n
 p 740.0 165.0 p4 0 n
@@ -12,10 +12,9 @@ t 130.0 230.0 t4 0 w n
 t 190.0 230.0 t5 0 w n
 t 295.0 225.0 t6 0 w n
 t 375.0 225.0 t7 0 w n
-t 670.0 225.0 t8 0 w n
-t 735.0 225.0 t9 0 w n
-t 835.0 220.0 t10 0 w n
-t 915.0 225.0 t11 0 w n
+t 670.0 225.0 t8c 0 w n
+t 735.0 225.0 t9c 0 w n
+t 835.0 220.0 t10c 0 w n
 p 130.0 285.0 p6 0 n
 p 185.0 285.0 p7 0 n
 p 295.0 285.0 p8 0 n
@@ -32,14 +31,14 @@ t 280.0 340.0 t16 0 w n
 t 330.0 340.0 t17 0 w n
 t 380.0 335.0 t18 0 w n
 t 430.0 340.0 t19 0 w n
-t 640.0 340.0 t20 0 w n
-t 695.0 340.0 t21 0 w n
-t 740.0 345.0 t22 0 w n
-t 795.0 340.0 t23 0 w n
-t 860.0 340.0 t24 0 w n
-t 910.0 345.0 t25 0 w n
-t 960.0 335.0 t26 0 w n
-t 1020.0 350.0 t27 0 w n
+t 640.0 340.0 t20c 0 w n
+t 695.0 340.0 t21c 0 w n
+t 740.0 345.0 t22c 0 w n
+t 795.0 340.0 t23c 0 w n
+t 860.0 340.0 t24c 0 w n
+t 910.0 345.0 t25c 0 w n
+t 960.0 335.0 t26c 0 w n
+t 1020.0 350.0 t27c 0 w n
 p 65.0 405.0 p14 0 n
 p 125.0 405.0 p15 0 n
 p 235.0 405.0 p17 0 n
@@ -72,22 +71,22 @@ t 355.0 480.0 t41 0 w n
 t 390.0 480.0 t42 0 w n
 t 425.0 475.0 t43 0 w n
 t 455.0 480.0 t44 0 w n
-t 610.0 470.0 t45 0 w n
-t 645.0 470.0 t46 0 w n
-t 670.0 465.0 t47 0 w n
-t 700.0 470.0 t48 0 w n
-t 725.0 465.0 t49 0 w n
-t 750.0 455.0 t50 0 w n
-t 785.0 465.0 t51 0 w n
-t 815.0 455.0 t52 0 w n
-t 845.0 460.0 t53 0 w n
-t 875.0 460.0 t54 0 w n
-t 905.0 455.0 t55 0 w n
-t 935.0 465.0 t56 0 w n
-t 1080.0 455.0 t60 0 w n
-t 1035.0 455.0 t59 0 w n
-t 995.0 460.0 t58 0 w n
-t 965.0 480.0 t57 0 w n
+t 610.0 470.0 t45c 0 w n
+t 645.0 470.0 t46c 0 w n
+t 670.0 465.0 t47c 0 w n
+t 700.0 470.0 t48c 0 w n
+t 725.0 465.0 t49c 0 w n
+t 750.0 455.0 t50c 0 w n
+t 785.0 465.0 t51c 0 w n
+t 815.0 455.0 t52c 0 w n
+t 845.0 460.0 t53c 0 w n
+t 875.0 460.0 t54c 0 w n
+t 905.0 455.0 t55c 0 w n
+t 935.0 465.0 t56c 0 w n
+t 1080.0 455.0 t60c 0 w n
+t 1035.0 455.0 t59c 0 w n
+t 995.0 460.0 t58c 0 w n
+t 965.0 480.0 t57c 0 w n
 p 1095.0 545.0 p63 0 n
 t 195.0 695.0 t61 0 w n
 t 70.0 690.0 t62 0 w n
@@ -137,178 +136,179 @@ p 910.0 530.0 p58 0 n
 p 880.0 555.0 p57 0 n
 p 855.0 540.0 p56 0 n
 p 565.0 755.0 p64 0 n
-t 570.0 815.0 t77 0 w n
+t 570.0 815.0 target 0 w n
 p 660.0 810.0 p65 0 n
-e p23 t47 1 n
-e p0 t0 1 n
-e p0 t1 1 n
-e t0 p2 1 n
-e t1 p3 1 n
-e p3 t6 1 n
-e p3 t7 1 n
-e p2 t5 1 n
-e p2 t4 1 n
-e t4 p6 1 n
-e t5 p7 1 n
-e t6 p8 1 n
-e t7 p9 1 n
-e p1 t2 1 n
-e t2 p4 1 n
-e p1 t3 1 n
-e t3 p5 1 n
-e p5 t10 1 n
-e p5 t11 1 n
-e t11 p13 1 n
-e t10 p12 1 n
-e p4 t9 1 n
-e p4 t8 1 n
-e t8 p10 1 n
-e t9 p11 1 n
-e p6 t12 1 n
-e p6 t13 1 n
-e p7 t14 1 n
-e p7 t15 1 n
-e p8 t16 1 n
-e p8 t17 1 n
-e p9 t18 1 n
-e p9 t19 1 n
-e p10 t20 1 n
-e p10 t21 1 n
-e p11 t22 1 n
-e p11 t23 1 n
-e p12 t24 1 n
-e p12 t25 1 n
-e p13 t26 1 n
-e p13 t27 1 n
-e t12 p14 1 n
-e t13 p15 1 n
-e t14 p16 1 n
-e t15 p17 1 n
-e t16 p18 1 n
-e t17 p19 1 n
-e t18 p20 1 n
-e t19 p21 1 n
-e t20 p22 1 n
-e t21 p23 1 n
-e t22 p24 1 n
-e t23 p25 1 n
-e t24 p26 1 n
-e t25 p27 1 n
-e t26 p28 1 n
-e t27 p29 1 n
-e p14 t28 1 n
-e p14 t29 1 n
-e p15 t30 1 n
-e p15 t31 1 n
-e p16 t32 1 n
-e p16 t33 1 n
-e p17 t35 1 n
-e p17 t36 1 n
-e p18 t37 1 n
-e p18 t38 1 n
-e p19 t39 1 n
-e p19 t40 1 n
-e p20 t41 1 n
-e p20 t42 1 n
-e p21 t43 1 n
-e p21 t44 1 n
-e p22 t45 1 n
-e p22 t46 1 n
-e p23 t48 1 n
-e p24 t50 1 n
-e p24 t49 1 n
-e p25 t51 1 n
-e p25 t52 1 n
-e p26 t53 1 n
-e p26 t54 1 n
-e p27 t55 1 n
-e p27 t56 1 n
-e p28 t57 1 n
-e p28 t58 1 n
-e p29 t59 1 n
-e p29 t60 1 n
-e t28 p30 1 n
-e t29 p31 1 n
-e t30 p32 1 n
-e t31 p33 1 n
-e t32 p34 1 n
-e t33 p36 1 n
-e t35 p37 1 n
-e t36 p38 1 n
-e t37 p39 1 n
-e t38 p40 1 n
-e t39 p41 1 n
-e t40 p42 1 n
-e t41 p43 1 n
-e t42 p44 1 n
-e t43 p45 1 n
-e t44 p46 1 n
-e t45 p48 1 n
-e t46 p49 1 n
-e t47 p50 1 n
-e t48 p51 1 n
-e t49 p52 1 n
-e t50 p53 1 n
-e t51 p54 1 n
-e t52 p55 1 n
-e t53 p56 1 n
-e t54 p57 1 n
-e t55 p58 1 n
-e t56 p59 1 n
-e t57 p60 1 n
-e t58 p61 1 n
-e t59 p62 1 n
-e t60 p63 1 n
-e p30 t62 1 n
-e p48 t62 1 n
-e p31 t63 1 n
-e p49 t63 1 n
-e p50 t61 1 n
-e p51 t64 1 n
-e p33 t64 1 n
-e p32 t61 1 n
-e p34 t65 1 n
-e p52 t65 1 n
-e p36 t66 1 n
-e p53 t66 1 n
-e p37 t67 1 n
-e p54 t67 1 n
-e p38 t68 1 n
-e p39 t69 1 n
-e p55 t68 1 n
-e p56 t69 1 n
-e p40 t70 1 n
-e p41 t71 1 n
-e p57 t71 1 n
-e p42 t72 1 n
-e p58 t72 1 n
-e p43 t73 1 n
-e p59 t73 1 n
-e p44 t74 1 n
-e p60 t74 1 n
-e p45 t75 1 n
-e p61 t75 1 n
-e p46 t76 1 n
-e p62 t76 1 n
-e p63 t70 1 n
-e t62 p64 1 n
-e t63 p64 1 n
-e t61 p64 1 n
-e t64 p64 1 n
-e t65 p64 1 n
-e t66 p64 1 n
-e t67 p64 1 n
-e t68 p64 1 n
-e t69 p64 1 n
-e t70 p64 1 n
-e t71 p64 1 n
-e t72 p64 1 n
-e t73 p64 1 n
-e t74 p64 1 n
-e t75 p64 1 n
+t 915.0 225.0 t11c 0 w n
+e target p65 1 n
+e p64 target 1 n
 e t76 p64 1 n
-e p64 t77 1 n
-e t77 p65 1 n
+e t75 p64 1 n
+e t74 p64 1 n
+e t73 p64 1 n
+e t72 p64 1 n
+e t71 p64 1 n
+e t70 p64 1 n
+e t69 p64 1 n
+e t68 p64 1 n
+e t67 p64 1 n
+e t66 p64 1 n
+e t65 p64 1 n
+e t64 p64 1 n
+e t61 p64 1 n
+e t63 p64 1 n
+e t62 p64 1 n
+e p63 t70 1 n
+e p62 t76 1 n
+e p46 t76 1 n
+e p61 t75 1 n
+e p45 t75 1 n
+e p60 t74 1 n
+e p44 t74 1 n
+e p59 t73 1 n
+e p43 t73 1 n
+e p58 t72 1 n
+e p42 t72 1 n
+e p57 t71 1 n
+e p41 t71 1 n
+e p40 t70 1 n
+e p56 t69 1 n
+e p55 t68 1 n
+e p39 t69 1 n
+e p38 t68 1 n
+e p54 t67 1 n
+e p37 t67 1 n
+e p53 t66 1 n
+e p36 t66 1 n
+e p52 t65 1 n
+e p34 t65 1 n
+e p32 t61 1 n
+e p33 t64 1 n
+e p51 t64 1 n
+e p50 t61 1 n
+e p49 t63 1 n
+e p31 t63 1 n
+e p48 t62 1 n
+e p30 t62 1 n
+e t60c p63 1 n
+e t59c p62 1 n
+e t58c p61 1 n
+e t57c p60 1 n
+e t56c p59 1 n
+e t55c p58 1 n
+e t54c p57 1 n
+e t53c p56 1 n
+e t52c p55 1 n
+e t51c p54 1 n
+e t50c p53 1 n
+e t49c p52 1 n
+e t48c p51 1 n
+e t47c p50 1 n
+e t46c p49 1 n
+e t45c p48 1 n
+e t44 p46 1 n
+e t43 p45 1 n
+e t42 p44 1 n
+e t41 p43 1 n
+e t40 p42 1 n
+e t39 p41 1 n
+e t38 p40 1 n
+e t37 p39 1 n
+e t36 p38 1 n
+e t35 p37 1 n
+e t33 p36 1 n
+e t32 p34 1 n
+e t31 p33 1 n
+e t30 p32 1 n
+e t29 p31 1 n
+e t28 p30 1 n
+e p29 t60c 1 n
+e p29 t59c 1 n
+e p28 t58c 1 n
+e p28 t57c 1 n
+e p27 t56c 1 n
+e p27 t55c 1 n
+e p26 t54c 1 n
+e p26 t53c 1 n
+e p25 t52c 1 n
+e p25 t51c 1 n
+e p24 t49c 1 n
+e p24 t50c 1 n
+e p23 t48c 1 n
+e p22 t46c 1 n
+e p22 t45c 1 n
+e p21 t44 1 n
+e p21 t43 1 n
+e p20 t42 1 n
+e p20 t41 1 n
+e p19 t40 1 n
+e p19 t39 1 n
+e p18 t38 1 n
+e p18 t37 1 n
+e p17 t36 1 n
+e p17 t35 1 n
+e p16 t33 1 n
+e p16 t32 1 n
+e p15 t31 1 n
+e p15 t30 1 n
+e p14 t29 1 n
+e p14 t28 1 n
+e t27c p29 1 n
+e t26c p28 1 n
+e t25c p27 1 n
+e t24c p26 1 n
+e t23c p25 1 n
+e t22c p24 1 n
+e t21c p23 1 n
+e t20c p22 1 n
+e t19 p21 1 n
+e t18 p20 1 n
+e t17 p19 1 n
+e t16 p18 1 n
+e t15 p17 1 n
+e t14 p16 1 n
+e t13 p15 1 n
+e t12 p14 1 n
+e p13 t27c 1 n
+e p13 t26c 1 n
+e p12 t25c 1 n
+e p12 t24c 1 n
+e p11 t23c 1 n
+e p11 t22c 1 n
+e p10 t21c 1 n
+e p10 t20c 1 n
+e p9 t19 1 n
+e p9 t18 1 n
+e p8 t17 1 n
+e p8 t16 1 n
+e p7 t15 1 n
+e p7 t14 1 n
+e p6 t13 1 n
+e p6 t12 1 n
+e t9c p11 1 n
+e t8c p10 1 n
+e p4 t8c 1 n
+e p4 t9c 1 n
+e t10c p12 1 n
+e t11c p13 1 n
+e p5 t11c 1 n
+e p5 t10c 1 n
+e t3c p5 1 n
+e p1 t3c 1 n
+e t2c p4 1 n
+e p1 t2c 1 n
+e t7 p9 1 n
+e t6 p8 1 n
+e t5 p7 1 n
+e t4 p6 1 n
+e p2 t4 1 n
+e p2 t5 1 n
+e p3 t7 1 n
+e p3 t6 1 n
+e t1 p3 1 n
+e t0 p2 1 n
+e p0 t1 1 n
+e p0 t0 1 n
+e p23 t47c 1 n
 h big_heart
 
 
