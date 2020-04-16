@@ -39,7 +39,7 @@ def help():
     print(" |")
     print(" |Example:")
     print(" |To load the net 'rete.ndr' in the current folder write")
-    print(" |python3 unfolding.py -n rete.ndr")
+    print(" |python3 unfricorsivo.py -n rete.ndr")
     exit()
 
 def tree_exploration (net, k, target, cut, M, e, st, tree, ind, scattati, cicli):
