@@ -11,7 +11,7 @@ Mandatory flag and argument: '-n' or '--net'   input_path + file_name
 Example:
 --------
 To load the net 'rete.ndr' in the current folder write:
-'python3 tina_tree_exp.py -n rete.ndr'
+'python3 unfricorsivo.py -n rete.ndr'
 
 -----------------------------------------------------------------------
 Aim of the program:
