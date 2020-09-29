@@ -1,3 +1,11 @@
+# Consider a net in which 10 concurrent transitions have to fire before 
+# the target can occur. 
+#The controllable transitions are t0c and t1c, while 'target' is the 
+#target. Actually, in this example there are two concurrent transitions 
+#belonging to the user; however the algorithm can detect the correct 
+#strategy, because there are no cycles.
+
+
 p 30.0 85.0 p0 1 n
 t 30.0 185.0 t0c 0 w n
 p 30.0 285.0 p1 0 n

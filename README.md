@@ -1,5 +1,6 @@
 # PNstrunf
 This tool runs with Python3. The main function is in unfricorsivo.py. 
+Having NumPy installed is necessary to run the program.
 
 -----------------------------------------------------------------------
 Instruction to run the program:

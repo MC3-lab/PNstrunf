@@ -42,7 +42,7 @@ def help():
     print(" |python3 unfricorsivo.py -n rete.ndr")
     exit()
 
-def tree_exploration (net, k, target, cut, M, e, st, tree, ind, scattati, cicli):
+def tree_exploration (net, k, target, cut, M, Elist, e, st, beta, tree, ind, scattati, ver, sz):
     """Recursive function which explore a cut in the unfolding.
 
     This function find the existence of a winning strategy by exploring 
@@ -63,6 +63,8 @@ def tree_exploration (net, k, target, cut, M, e, st, tree, ind, scattati, cicli)
         marking, the second with the indices of places in the marking
     M: list
         List of markings visited in the current play 
+    Elist: 
+
     e: int
         Last event added in the current play
     st: list
@@ -75,10 +77,12 @@ def tree_exploration (net, k, target, cut, M, e, st, tree, ind, scattati, cicli)
         Index of the last cut that has been considered
     scattati: list
         List of events that are already part of the prefix
-    contatore: list, optional
-        Counter of calls to the function 'tree_exploration'
-    cicli: bool
-        True if a cycle has been already detected, False otherwise
+    ver: list    
+        List of pairs repeated marking- events fired between the 
+        two repetitions
+    sz: list
+        Events that fired in a cycle or that are in conflict with 
+        events that fired in a cycle
 
     Returns 
     -------
@@ -89,89 +93,96 @@ def tree_exploration (net, k, target, cut, M, e, st, tree, ind, scattati, cicli)
         Winning strategy (if there is one)  
     tree: list
         List of prefixes of the winning plays  
-    cicli: bool
-        True if a cycle was detected, False otherwise         
+    ver: list    
+        List of pairs repeated marking- events fired between the 
+        two repetitions
     """
     
     global contatore
     contatore = contatore + 1 # count the number of recursive calls
     enab = calcola_abilitati(net, cut[0]) 
-    enab_n = enab[0:k] # uncontrollable enabled events
-    enab_c = enab[k:len(enab)] #controllable enabled events
+    enab = enab - sz
     if e == target: #the target occurred
-        return True, st, tree, cicli
+        return True, st, beta, tree, ver
     elif 1 not in enab: #deadlock
-        return False, st, tree, cicli
+        return False, st, beta, tree, ver
     elif confronta_tagli(cut, taglic) == True: #the cut was already analysed and after that the user loses
-        return False, st, tree, cicli
+        return False, st, beta, tree, ver
     elif confronta_tagli(cut, taglib): #the cut was already analysed and after that the user wins
-        return True, st, tree, cicli
+        return True, st, beta, tree, ver
     elif set(cut[0]) in M: #the marking was already crossed in the play
-        return explore_cut_c(net, k, target, st, tree, enab, cut, M, ind, scattati)
-    elif 1 in enab_n: #there are uncontrollable enabled events
+        return explore_cut_c(net, k, target, st, beta, tree, enab, cut, M, Elist, ind, scattati, ver, sz)
+    else:
         E = []
-        for i in range (0, len(enab_n)):
-            if enab_n[i] == 1:
+        for i in range (0, len(enab)):
+            if enab[i] == 1:
                 E.append(i)
-        w = True
-        while E != [] and w == True:
+        flag_nc = False
+        w2 = False
+        choices = set([])
+        lose = set([])
+        while E != []: 
             e0, E = extract(E)
             precond = calcola_precond(net, e0, cut)
             #In order to compute the indices of places of the cut following 
             #e0, we divide the case in which e0 has already been considered 
-            #form the case in which it is a new event.
+            #from the case in which it is a new event.
             if [precond, e0] in scattati:     
                 ecut = calcola_taglio_successivo(cut, e0, net, ind, False)
             else:        
                 ind[np.shape(net)[0] + e0 ] = ind[np.shape(net)[0] + e0] + 1
                 ecut = calcola_taglio_successivo(cut, e0, net, ind)
                 scattati.append([precond, e0])
-#                   
+#                  
+            Elist1 = copy.deepcopy(Elist)
+            Elist1.append(e0) 
             M1 = copy.deepcopy(M)
             M1.append(set(cut[0]))
-            w, st, tree, cicli = tree_exploration(net, k, target, ecut, M1, e0, st, tree, ind, scattati, cicli)
-            #The prefix is updated every time that the recursive call returns True
-            if w == True:
-                tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut))           
-        #The list of 'good' and 'bad' cut for the User is updated when all the recursive 
-        #call from the current one returned a value  
-        if w == True :
-            taglib.append(cut)
-        else: 
-            taglic.append(cut)    
-        return w, st, tree, cicli
-    #If the following 'else' is considered, then there must be controllable enabled transitions
-    else: 
-        E = []
-        w2 = False
-        for i in range (0, len(enab_c)):
-            if enab_c[i] == 1:
-                E.append(k +i)
-        while E != [] and w2 == False: #the strategy is singular, to have a larger one delete 'w2 == False'
-            e0, E = extract(E)
-            precond = calcola_precond(net, e0, cut)
-            if [precond, e0] in scattati:    
-                ecut = calcola_taglio_successivo(cut, e0, net, ind, False)
-            else:        
-                ind[np.shape(net)[0] + e0 ] = ind[np.shape(net)[0] + e0] + 1
-                ecut = calcola_taglio_successivo(cut, e0, net, ind)
-                scattati.append([precond, e0])
-#
-            M1 = copy.deepcopy(M)
-            M1.append(set(cut[0]))
-            w, st, tree, cicli = tree_exploration(net, k, target, ecut, M1, e0, st, tree, ind, scattati, cicli)
-            if w == True:
-                tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut))
-                st.append([cut, e0]) #since e0 is controllable, if the recursive call returns True, the strategy is updated
-                w2 = True
-        if w2 == True :
-            taglib.append(cut)
-        else: 
-            taglic.append(cut)   
-        return w2, st, tree, cicli
+#    
+            if e0 < k:
+                flag_nc = True
+                w, st, beta, tree, ver = tree_exploration(net, k, target, ecut, M1, Elist1, e0, st, beta, tree, ind, scattati, ver, sz)
+                #The prefix is updated every time that the recursive call returns True
+                for i in range (0, len(ver)):
+                    if set(ecut[0]) == ver[i][0] and (set(cut[0]), ver[i][1]) not in ver:
+                        ver.append((set(cut[0]), ver[i][1]))                 
+                if w == True:
+                    tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut)) 
+                else:
+                    taglic.append(cut)
+                    return False, st, beta, tree, ver          
+            else:
+                w, st, beta, tree, ver = tree_exploration(net, k, target, ecut, M1, Elist1, e0, st, beta, tree, ind, scattati, ver, sz)
+                if w == True:
+                    tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut))
+                    choices.add(e0)  
+                    w2 = True
+                else:
+                    lose.add(e0)
+        if w2 == True:
+            st.append([cut, choices])  #since e0 is controllable, if the recursive call returns True, the strategy is updated
+        elif w2 == False and flag_nc == False: 
+            taglic.append(cut)
+            return False, st, beta, tree, ver
+        if lose != set([]):
+            beta.append([cut, lose])
+        taglib.append(cut)  
+        ins = set([])
+        j = 0
+        for i in range (0, len(ver)):
+            if set(cut[0]) == ver[i][0]:
+                j = j+1
+                ins = ins.union(set(ver[i][1]))
+        if j >= 1:
+            sz1 = stable_zone(net, ins)
+            w, st, beta, tree, ver = tree_exploration(net, k, target, cut, M, Elist, -1, st, beta, tree, ind, scattati, ver, sz1)
+        else:
+            return True, st, beta, tree, ver
+
+        return w, st, beta, tree, ver
 
 
-def explore_cut_c(net, k, target, st, tree, enab_c, cut, M, ind, scattati): 
+def explore_cut_c(net, k, target, st, beta, tree, enab_c, cut, M, Elist, ind, scattati, ver, sz): 
     """Function used in case of repeated marking in a play. 
 
     When the same marking appears twice or more in a play, this 
@@ -201,13 +212,17 @@ def explore_cut_c(net, k, target, st, tree, enab_c, cut, M, ind, scattati):
         Cut that has to be analysed 
     M: list
         List of markings already visited in the current play 
+    Elist: list
+        List of events that occurred in the play
     ind: list
         Identifier of the cut in the play 
     scattati: list
         List of events already occurred in the unfolding
-    contatore: list, optional
-        It counts the number of steps that are necessary to arrive at 
-        the result
+    ver: list    
+        List of pairs repeated marking- events fired between the 
+        two repetitions
+    sz: list
+        events that fired in a cycle or are in conflict with them
 
     Returns
     -------
@@ -218,68 +233,74 @@ def explore_cut_c(net, k, target, st, tree, enab_c, cut, M, ind, scattati):
     tree: list
         prefix of the unfolding represented as list of triples 
         cut-transition-cut  
-    True
-        It states that a cycle was detected      
+    ver: list    
+        List of pairs repeated marking- events fired between the 
+        two repetitions      
     """
 
-    E = f(net, enab_c, set(cut[0]), M)
+    E, index = f(net, enab_c, set(cut[0]), M, Elist, k)
     global contatore
     contatore = contatore+1
-    if E == []:
-        return False, st, tree, True
-    E_nc = []
-    E_c = []
-    for i in E :
-        if i < control :
-            E_nc.append(i)
-        else : 
-            E_c.append(i)
-    if E_nc != [] :
-        w = True
-        while E_nc != [] and w == True:
-            e0, E_nc = extract(E_nc)
-            precond = calcola_precond(net, e0, cut)
-            if [precond, e0] in scattati:    
-                ecut = calcola_taglio_successivo(cut, e0, net, ind, False)
-            else:        
-                ind[np.shape(net)[0] + e0 ] = ind[np.shape(net)[0] + e0] + 1
-                ecut = calcola_taglio_successivo(cut, e0, net, ind)
-                scattati.append([precond, e0])
-            M1 = copy.deepcopy(M)
-            M1.append(cut[0])
-            w, st, tree, cicli = tree_exploration(net, k, target, ecut, M1, e0, st, tree, ind, scattati, True)
+    if E == set([]):
+        return False, st, beta, tree, ver
+#
+    for i in range (0, len(sz)):
+        if sz[i] == 1:
+            E = E - set([i])
+    E = list(E)
+    flag_nc = False
+    w2 = False
+    choices = set([])
+    lose = set([])
+#
+    while E != []: 
+        e0, E = extract(E)
+        precond = calcola_precond(net, e0, cut)
+        #In order to compute the indices of places of the cut following 
+        #e0, we divide the case in which e0 has already been considered 
+        #from the case in which it is a new event.
+        if [precond, e0] in scattati:     
+            ecut = calcola_taglio_successivo(cut, e0, net, ind, False)
+        else:        
+            ind[np.shape(net)[0] + e0 ] = ind[np.shape(net)[0] + e0] + 1
+            ecut = calcola_taglio_successivo(cut, e0, net, ind)
+            scattati.append([precond, e0])
+#                   
+        Elist1 = copy.deepcopy(Elist)
+        Elist1.append(e0)
+        M1 = copy.deepcopy(M)
+        M1.append(set(cut[0]))
+#    
+        if e0 < k:
+            flag_nc = True
+            w, st, beta, tree, ver = tree_exploration(net, k, target, ecut, M1, Elist1, e0, st, beta, tree, ind, scattati, ver, sz)
+            #The prefix is updated every time that the recursive call returns True
             if w == True:
-                tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut))
-        if w == True :
-            taglib.append(cut)
+                tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut)) 
+            else:
+                taglic.append(cut)
+                return False, st, beta, tree, ver          
         else:
-            taglic.append(cut)
-        return w, st, tree, True
-    else:
-        w2 = False
-        while E_c != [] and w2 == False:
-            e0, E = extract(E_c)
-            precond = calcola_precond(net, e0, cut)
-            if [precond, e0] in scattati:    
-                ecut = calcola_taglio_successivo(cut, e0, net, ind, False)
-            else:        
-                ind[np.shape(net)[0] + e0 ] = ind[np.shape(net)[0] + e0] + 1
-                ecut = calcola_taglio_successivo(cut, e0, net, ind)
-                scattati.append([precond, e0])
-            M1 = copy.deepcopy(M)
-            M1.append(cut[0])
-            w, st, tree, cicli = tree_exploration(net, k, target, ecut, M1, e0, st, tree, ind, scattati, True)
+            w, st, beta, tree, ver = tree_exploration(net, k, target, ecut, M1, Elist1, e0, st, beta, tree, ind, scattati, ver, sz)
             if w == True:
                 tree.append((cut, [e0, ind[np.shape(net)[0] + e0] -1], ecut))
-                st.append([cut, e0])
+                choices.add(e0)  
                 w2 = True
-        if w2 == True :
-            taglib.append(cut)
-        else: 
-            taglic.append(cut)   
-        return w2, st, tree, True
+            else:
+                lose.add(e0)
+    if w2 == True:
+        st.append([cut, choices])  #since e0 is controllable, if the recursive call returns True, the strategy is updated
+    elif w2 == False and flag_nc == False: 
+        taglic.append(cut)
+        return False, st, beta, tree, ver
+    if lose != set([]):
+        beta.append([cut, lose])
+    taglib.append(cut) 
+    ver.append((set(cut[0]), Elist[index:len(Elist)]))  
+    return True, st, beta, tree, ver
 
-def f(net, enab_c, cut, M):
+
+def f(net, enab_c, cut, M, Elist, k):
     """Check if there are transitions concurrent with cycles.
 
     This function verifies which events are enabled in all the markings 
@@ -296,26 +317,75 @@ def f(net, enab_c, cut, M):
         associated marking is repeated
     M: list
         List of markings already visited in the play 
+    Elist: list
+        List of events that occurred in the play
+    k: int
+        index of the first controllable transition
 
     Rerutns
     --------
     E: list
-        List of enabled transitions that are concurrent with the cycle     
+        List of enabled transitions that are concurrent with the cycle 
+    i: int 
+        index in M and Elist of the first repeated marking    
     """
 
     i = 0
     while M[i] != cut : #look for the first occurrence of 'cut'
         i = i +1
-    E = []
+    E = set([])
     for l in range (0, len(enab_c)): #check if l was enabled in all the marking of the cycle
         if enab_c[l] == 1:
             j = i
+            if Elist[j] >= k:
+                return set([]), i
             while j < len(M) and verifica_ab(net, M[j], l):              
                 j = j +1
             if j == len(M):
-                E.append(l)
-    return E
+                E.add(l)
+    return E, i
 
+def g(net, marking, E, k):
+    nprecond = set([])
+    ev = set([])
+    for i in E:
+        for j in range (0, np.shape(net)[0]):
+            if net[j][i] == -1: 
+                nprecond.add(j)
+    for i in nprecond:
+        for j in range(0, k):
+            if net[i][j] == -1 and verifica_ab(net, marking, j):
+                ev.add(j)
+    return(ev)
+    
+def stable_zone(net, ins):
+    """Select the events that occurred in a cycle and those that are 
+       in conflict with them
+
+    Parameters
+    ----------
+    net: np.array
+        incidence matrix of the net
+    ins: set
+        set of events
+    
+    Returns
+    -------
+    sz: list
+        events in conflict with those in 'ins' (end ins itself)
+
+    """
+    rows = set([])
+    sz = np.zeros(np.shape(net)[1])
+    for i in ins:
+        for j in range (0, np.shape(net)[0]):
+            if net[j][i] == -1:
+                rows.add(j)
+    for l in rows:
+        for j in range (0, np.shape(net)[1]):
+            if net[l][j] == -1:
+                sz[j] = 1
+    return sz
                            
 def calcola_abilitati(rete, marcatura):
     """Compute enabled transitions.
@@ -508,54 +578,6 @@ def extract(E):
     E.pop(0)
     return e0, E
 
-def fill_cycles(st, gr_ad, inCut):
-    """The function assigns the same choice to every marking of a cycle. 
-
-    Given the strategy constructed by 'tree_exploration' and the prefix 
-    of the unfolding, this function detects the presence of cycles and 
-    assigns the same choice to all the markings of the cycle.
-
-    Parameters
-    ----------
-    st: list
-        List of Cut-event with the choices returned by the call in the 
-        main of 'tree_exploration'
-    gr_ad: list
-        Description of the prefix of the unfolding
-    inCut: Cut
-        Initial cut of the unfolding
-
-    Returns
-    -------
-    st1: list
-        Complete strategy for the net, given the target and the set of 
-        controllable transitions
-    """
-    
-    st2 = copy.deepcopy(st)
-    for i in range (0, len(st)):
-        lse, lsc = cammini(gr_ad, st[i][0], inCut, [], [], [], [])
-        for c in range (0, len(lsc)): #cycle detection
-            j = len(lsc[c])-1
-            b = False
-            for r in lse[c][0:j]: 
-                if r[0] >= control :
-                    b = True
-            while j>0 and (st[i][0].marking() != lsc[c][j].marking() or b == True):
-                j = j-1
-                b = False
-                for r in lse[c][0:j]:
-                    if r[0] >= control :
-                        b = True
-            #Fill the strategy
-            if j > 0:
-                for n in range (0, j):
-                    st2.append([lsc[c][n], st[i][1]])
-    st1 = []        
-    for s in st2:
-        st1.append([s[0].marking(), s[1]])
-    st1 = Elimina(st1) 
-    return st1
 
 def Elimina(lista):
     """Deleting repeated elements from a list.
@@ -577,7 +599,7 @@ def Elimina(lista):
             lista.remove(i)
     return lista
 
-def visualizza_strategia (st, m) :
+def visualizza_strategia (elenco, m) :
     """From the incidence matrix to the name in the .ndr file. 
 
     This function takes the strategy in which places and transitions 
@@ -601,14 +623,19 @@ def visualizza_strategia (st, m) :
     """
 
     strategy = []    
-    for k in range(0, len(st)) :
-        i = st[k][0]
+    for k in range(0, len(elenco)) :
+        i = elenco[k][0]
         i = list(i)
+        l = elenco[k][1]
+        l = list(l)
 #        print("m", m)
         c = []
+        d = []
         for j in range(0,len(i)):         
             c.append(m[i[j] + 1][0])
-        strategy.append([c, m[0][st[k][1]+1]])
+        for h in range(0, len(l)):
+            d.append(m[0][l[h]+1])
+        strategy.append([c, d])
     return strategy
 
 
@@ -818,7 +845,7 @@ if __name__ == '__main__':
     for i in inMarking : #update of the indices that are in the initial marking
         ind[i] = 1
      
-    v, st, tree, cicli = tree_exploration(net, control, target, inCut, [], -1, [], [], ind, [], False)
+    v, st, beta, tree, ver = tree_exploration(net, control, target, inCut, [], [], -1, [], [], [], ind, [], [], np.zeros(np.shape(net)[1]))
     print(v)
     print("chiamate a tree_exploration: ", contatore)
     #
@@ -827,14 +854,19 @@ if __name__ == '__main__':
         print("dimensione grafo: ", len( gr_ad))
         inCut = list_to_Cut(inCut)
         for i in range (0, len(st)):
-            st[i][0] = list_to_Cut(st[i][0])  #The cuts in the strategy (list) are transformed in Cut objects.            
-        if cicli == True:
-            st1 = fill_cycles(st, gr_ad, inCut)
-        else:
-            st1 = []        
-            for s in st:
-                st1.append([s[0].marking(), s[1]])
+            st[i][0] = list_to_Cut(st[i][0])  #The cuts in the strategy (list) are transformed in Cut objects.
+        for i in range(0, len(beta)):
+            beta[i][0] = list_to_Cut(beta[i][0])            
+        st1 = []        
+        for s in st:
+            st1.append([s[0].marking(), s[1]])
+        beta1 = []
+        for b in beta:
+            beta1.append([b[0].marking(), b[1]])
+        st1 = Elimina(st1)
+        beta1 = Elimina(beta1)
         st_lett = visualizza_strategia(st1, m)
-        print(st_lett)
-        print(len(st_lett))
+        beta_lett = visualizza_strategia(beta1, m)
+        print("alpha: ", st_lett)
+        print("beta: ", beta_lett)
 

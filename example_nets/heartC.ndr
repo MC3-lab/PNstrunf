@@ -1,3 +1,11 @@
+#This example has a similar idea of the other 'heart' net. 
+#The user can find a winning strategy because he can observe the 
+#environment choiche before doing his own move.
+#The controllable transitions are t2c and t3c, and the target is 
+#'target'. 
+# With respect to the simpler heart, in this case there is a cycle 
+#that increases the number of steps.
+
 p 110.0 55.0 p0 1 n
 p 305.0 50.0 p1 1 n
 t 35.0 125.0 t0 0 w n

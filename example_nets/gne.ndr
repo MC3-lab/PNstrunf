@@ -1,0 +1,51 @@
+#Net with two cycles that in conflict with each other that can occur
+#alternatively infinitely often. 
+#We assume there is no controllable transition, and the target is t2. 
+#There is no winning strategy, and the algorithm detect it, because 
+#after finding the cycles, it checks whether there is a path that is 
+#concurrent with all the transitions occurred in the cycles and 
+#cannot find it.
+
+p 120.0 260.0 p1 0 n
+p 115.0 345.0 p2 1 n
+p 345.0 50.0 p3 1 n
+p 335.0 345.0 p4 1 n
+p 315.0 455.0 p6 0 n
+p 305.0 605.0 p7 0 n
+t 220.0 395.0 t0 0 w n
+t 435.0 415.0 t1 0 w n
+t 305.0 525.0 t2 0 w n
+t 25.0 235.0 t3 0 w n
+t 230.0 230.0 t4 0 w n
+t 335.0 205.0 t5 0 w n
+t 475.0 160.0 t6 0 w n
+p 490.0 330.0 p5 1 n
+p 120.0 140.0 p0 0 n
+p 415.0 205.0 p8 0 n
+e p8 t5 1 n
+e t6 p8 1 n
+e p2 t4 1 n
+e t4 p0 1 n
+e p0 t3 1 n
+e t3 p2 1 n
+e t4 p1 1 n
+e p1 t3 1 n
+e p2 t0 1 n
+e p4 t0 1 n
+e p4 t1 1 n
+e p5 t1 1 n
+e t1 p6 1 n
+e t0 p6 1 n
+e p6 t2 1 n
+e t2 p7 1 n
+e p5 t6 1 n
+e p3 t6 1 n
+e t5 p3 1 n
+e t5 p5 1 n
+e t6 p0 1 n
+e p0 t5 1 n
+e p3 t4 1 n
+e t3 p3 1 n
+h gne
+
+

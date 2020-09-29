@@ -1,3 +1,10 @@
+#This example is equivalent to bc.ndr, but has a disconnected cycle in 
+#addition. This increases significantly the number of operations.
+#The controllable transitions are t4c and t5c, while the target 
+#is denoted as 'target'. The user can win this play only by observing the 
+#the move of the environment.
+
+
 p 35.0 55.0 p0 1 n
 p 30.0 210.0 p1 1 n
 p 195.0 50.0 p2 0 n

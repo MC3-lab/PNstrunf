@@ -142,7 +142,7 @@ Returns&nbsp;<br>
 -------<br>
 bool<br>
 &nbsp;&nbsp;True&nbsp;if&nbsp;the&nbsp;cuts&nbsp;are&nbsp;equals,&nbsp;False&nbsp;otherwise</tt></dd></dl>
- <dl><dt><a name="-explore_cut_c"><strong>explore_cut_c</strong></a>(net, k, target, st, tree, enab_c, cut, M, ind, scattati)</dt><dd><tt>Function&nbsp;used&nbsp;in&nbsp;case&nbsp;of&nbsp;repeated&nbsp;marking&nbsp;in&nbsp;a&nbsp;play.&nbsp;<br>
+ <dl><dt><a name="-explore_cut_c"><strong>explore_cut_c</strong></a>(net, k, target, st, beta, tree, enab_c, cut, M, Elist, ind, scattati, ver, sz)</dt><dd><tt>Function&nbsp;used&nbsp;in&nbsp;case&nbsp;of&nbsp;repeated&nbsp;marking&nbsp;in&nbsp;a&nbsp;play.&nbsp;<br>
 &nbsp;<br>
 When&nbsp;the&nbsp;same&nbsp;marking&nbsp;appears&nbsp;twice&nbsp;or&nbsp;more&nbsp;in&nbsp;a&nbsp;play,&nbsp;this&nbsp;<br>
 function&nbsp;check&nbsp;if&nbsp;there&nbsp;are&nbsp;enabled&nbsp;transitions&nbsp;that&nbsp;are&nbsp;concurrent&nbsp;<br>
@@ -171,13 +171,17 @@ cut:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Cut&nbsp;that&nbsp;has&nbsp;to&nbsp;be&nbsp;analysed&nbsp;<br>
 M:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;already&nbsp;visited&nbsp;in&nbsp;the&nbsp;current&nbsp;play&nbsp;<br>
+Elist:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;that&nbsp;occurred&nbsp;in&nbsp;the&nbsp;play<br>
 ind:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Identifier&nbsp;of&nbsp;the&nbsp;cut&nbsp;in&nbsp;the&nbsp;play&nbsp;<br>
 scattati:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;already&nbsp;occurred&nbsp;in&nbsp;the&nbsp;unfolding<br>
-contatore:&nbsp;list,&nbsp;optional<br>
-&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;counts&nbsp;the&nbsp;number&nbsp;of&nbsp;steps&nbsp;that&nbsp;are&nbsp;necessary&nbsp;to&nbsp;arrive&nbsp;at&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;result<br>
+ver:&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;pairs&nbsp;repeated&nbsp;marking-&nbsp;events&nbsp;fired&nbsp;between&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;two&nbsp;repetitions<br>
+sz:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;events&nbsp;that&nbsp;fired&nbsp;in&nbsp;a&nbsp;cycle&nbsp;or&nbsp;are&nbsp;in&nbsp;conflict&nbsp;with&nbsp;them<br>
 &nbsp;<br>
 Returns<br>
 -------<br>
@@ -188,8 +192,9 @@ st:&nbsp;list<br>
 tree:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;prefix&nbsp;of&nbsp;the&nbsp;unfolding&nbsp;represented&nbsp;as&nbsp;list&nbsp;of&nbsp;triples&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;cut-transition-cut&nbsp;&nbsp;<br>
-True<br>
-&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;states&nbsp;that&nbsp;a&nbsp;cycle&nbsp;was&nbsp;detected</tt></dd></dl>
+ver:&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;pairs&nbsp;repeated&nbsp;marking-&nbsp;events&nbsp;fired&nbsp;between&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;two&nbsp;repetitions</tt></dd></dl>
  <dl><dt><a name="-extract"><strong>extract</strong></a>(E)</dt><dd><tt>Extraction&nbsp;of&nbsp;the&nbsp;first&nbsp;element&nbsp;of&nbsp;a&nbsp;list.<br>
 &nbsp;<br>
 Parameters<br>
@@ -203,7 +208,7 @@ e0:&nbsp;int&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;First&nbsp;element&nbsp;of&nbsp;the&nbsp;list&nbsp;'E'<br>
 E:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;list&nbsp;modified&nbsp;without&nbsp;the&nbsp;first&nbsp;element</tt></dd></dl>
- <dl><dt><a name="-f"><strong>f</strong></a>(net, enab_c, cut, M)</dt><dd><tt>Check&nbsp;if&nbsp;there&nbsp;are&nbsp;transitions&nbsp;concurrent&nbsp;with&nbsp;cycles.<br>
+ <dl><dt><a name="-f"><strong>f</strong></a>(net, enab_c, cut, M, Elist, k)</dt><dd><tt>Check&nbsp;if&nbsp;there&nbsp;are&nbsp;transitions&nbsp;concurrent&nbsp;with&nbsp;cycles.<br>
 &nbsp;<br>
 This&nbsp;function&nbsp;verifies&nbsp;which&nbsp;events&nbsp;are&nbsp;enabled&nbsp;in&nbsp;all&nbsp;the&nbsp;markings&nbsp;<br>
 after&nbsp;the&nbsp;first&nbsp;occurrence&nbsp;of&nbsp;the&nbsp;marking&nbsp;associated&nbsp;to&nbsp;'cut'.<br>
@@ -219,32 +224,18 @@ cut:&nbsp;set<br>
 &nbsp;&nbsp;&nbsp;&nbsp;associated&nbsp;marking&nbsp;is&nbsp;repeated<br>
 M:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;already&nbsp;visited&nbsp;in&nbsp;the&nbsp;play&nbsp;<br>
+Elist:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;that&nbsp;occurred&nbsp;in&nbsp;the&nbsp;play<br>
+k:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;of&nbsp;the&nbsp;first&nbsp;controllable&nbsp;transition<br>
 &nbsp;<br>
 Rerutns<br>
 --------<br>
 E:&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;enabled&nbsp;transitions&nbsp;that&nbsp;are&nbsp;concurrent&nbsp;with&nbsp;the&nbsp;cycle</tt></dd></dl>
- <dl><dt><a name="-fill_cycles"><strong>fill_cycles</strong></a>(st, gr_ad, inCut)</dt><dd><tt>The&nbsp;function&nbsp;assigns&nbsp;the&nbsp;same&nbsp;choice&nbsp;to&nbsp;every&nbsp;marking&nbsp;of&nbsp;a&nbsp;cycle.&nbsp;<br>
-&nbsp;<br>
-Given&nbsp;the&nbsp;strategy&nbsp;constructed&nbsp;by&nbsp;'tree_exploration'&nbsp;and&nbsp;the&nbsp;prefix&nbsp;<br>
-of&nbsp;the&nbsp;unfolding,&nbsp;this&nbsp;function&nbsp;detects&nbsp;the&nbsp;presence&nbsp;of&nbsp;cycles&nbsp;and&nbsp;<br>
-assigns&nbsp;the&nbsp;same&nbsp;choice&nbsp;to&nbsp;all&nbsp;the&nbsp;markings&nbsp;of&nbsp;the&nbsp;cycle.<br>
-&nbsp;<br>
-Parameters<br>
-----------<br>
-st:&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;Cut-event&nbsp;with&nbsp;the&nbsp;choices&nbsp;returned&nbsp;by&nbsp;the&nbsp;call&nbsp;in&nbsp;the&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;of&nbsp;'tree_exploration'<br>
-gr_ad:&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;of&nbsp;the&nbsp;prefix&nbsp;of&nbsp;the&nbsp;unfolding<br>
-inCut:&nbsp;Cut<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Initial&nbsp;cut&nbsp;of&nbsp;the&nbsp;unfolding<br>
-&nbsp;<br>
-Returns<br>
--------<br>
-st1:&nbsp;list<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Complete&nbsp;strategy&nbsp;for&nbsp;the&nbsp;net,&nbsp;given&nbsp;the&nbsp;target&nbsp;and&nbsp;the&nbsp;set&nbsp;of&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;controllable&nbsp;transitions</tt></dd></dl>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;enabled&nbsp;transitions&nbsp;that&nbsp;are&nbsp;concurrent&nbsp;with&nbsp;the&nbsp;cycle&nbsp;<br>
+i:&nbsp;int&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;in&nbsp;M&nbsp;and&nbsp;Elist&nbsp;of&nbsp;the&nbsp;first&nbsp;repeated&nbsp;marking</tt></dd></dl>
+ <dl><dt><a name="-g"><strong>g</strong></a>(net, marking, E, k)</dt></dl>
  <dl><dt><a name="-help"><strong>help</strong></a>()</dt></dl>
  <dl><dt><a name="-input_parameters"><strong>input_parameters</strong></a>(rete)</dt><dd><tt>Extraction&nbsp;of&nbsp;the&nbsp;useful&nbsp;data&nbsp;from&nbsp;the&nbsp;file&nbsp;.ndr.<br>
 &nbsp;<br>
@@ -281,7 +272,21 @@ Returns<br>
 -------<br>
 options:&nbsp;dict<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Classification&nbsp;of&nbsp;the&nbsp;input</tt></dd></dl>
- <dl><dt><a name="-tree_exploration"><strong>tree_exploration</strong></a>(net, k, target, cut, M, e, st, tree, ind, scattati, cicli)</dt><dd><tt>Recursive&nbsp;function&nbsp;which&nbsp;explore&nbsp;a&nbsp;cut&nbsp;in&nbsp;the&nbsp;unfolding.<br>
+ <dl><dt><a name="-stable_zone"><strong>stable_zone</strong></a>(net, ins)</dt><dd><tt>Select&nbsp;the&nbsp;events&nbsp;that&nbsp;occurred&nbsp;in&nbsp;a&nbsp;cycle&nbsp;and&nbsp;those&nbsp;that&nbsp;are&nbsp;<br>
+&nbsp;&nbsp;&nbsp;in&nbsp;conflict&nbsp;with&nbsp;them<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+net:&nbsp;np.array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;incidence&nbsp;matrix&nbsp;of&nbsp;the&nbsp;net<br>
+ins:&nbsp;set<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;of&nbsp;events<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+sz:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;events&nbsp;in&nbsp;conflict&nbsp;with&nbsp;those&nbsp;in&nbsp;'ins'&nbsp;(end&nbsp;ins&nbsp;itself)</tt></dd></dl>
+ <dl><dt><a name="-tree_exploration"><strong>tree_exploration</strong></a>(net, k, target, cut, M, Elist, e, st, beta, tree, ind, scattati, ver, sz)</dt><dd><tt>Recursive&nbsp;function&nbsp;which&nbsp;explore&nbsp;a&nbsp;cut&nbsp;in&nbsp;the&nbsp;unfolding.<br>
 &nbsp;<br>
 This&nbsp;function&nbsp;find&nbsp;the&nbsp;existence&nbsp;of&nbsp;a&nbsp;winning&nbsp;strategy&nbsp;by&nbsp;exploring&nbsp;<br>
 all&nbsp;the&nbsp;prefixes&nbsp;of&nbsp;palys&nbsp;in&nbsp;the&nbsp;unfolding.&nbsp;<br>
@@ -301,6 +306,8 @@ cut:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;marking,&nbsp;the&nbsp;second&nbsp;with&nbsp;the&nbsp;indices&nbsp;of&nbsp;places&nbsp;in&nbsp;the&nbsp;marking<br>
 M:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;markings&nbsp;visited&nbsp;in&nbsp;the&nbsp;current&nbsp;play&nbsp;<br>
+Elist:&nbsp;<br>
+&nbsp;<br>
 e:&nbsp;int<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Last&nbsp;event&nbsp;added&nbsp;in&nbsp;the&nbsp;current&nbsp;play<br>
 st:&nbsp;list<br>
@@ -313,10 +320,12 @@ ind:&nbsp;list&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Index&nbsp;of&nbsp;the&nbsp;last&nbsp;cut&nbsp;that&nbsp;has&nbsp;been&nbsp;considered<br>
 scattati:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;events&nbsp;that&nbsp;are&nbsp;already&nbsp;part&nbsp;of&nbsp;the&nbsp;prefix<br>
-contatore:&nbsp;list,&nbsp;optional<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Counter&nbsp;of&nbsp;calls&nbsp;to&nbsp;the&nbsp;function&nbsp;'tree_exploration'<br>
-cicli:&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;a&nbsp;cycle&nbsp;has&nbsp;been&nbsp;already&nbsp;detected,&nbsp;False&nbsp;otherwise<br>
+ver:&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;pairs&nbsp;repeated&nbsp;marking-&nbsp;events&nbsp;fired&nbsp;between&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;two&nbsp;repetitions<br>
+sz:&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Events&nbsp;that&nbsp;fired&nbsp;in&nbsp;a&nbsp;cycle&nbsp;or&nbsp;that&nbsp;are&nbsp;in&nbsp;conflict&nbsp;with&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;events&nbsp;that&nbsp;fired&nbsp;in&nbsp;a&nbsp;cycle<br>
 &nbsp;<br>
 Returns&nbsp;<br>
 -------<br>
@@ -327,8 +336,9 @@ st:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Winning&nbsp;strategy&nbsp;(if&nbsp;there&nbsp;is&nbsp;one)&nbsp;&nbsp;<br>
 tree:&nbsp;list<br>
 &nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;prefixes&nbsp;of&nbsp;the&nbsp;winning&nbsp;plays&nbsp;&nbsp;<br>
-cicli:&nbsp;bool<br>
-&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;a&nbsp;cycle&nbsp;was&nbsp;detected,&nbsp;False&nbsp;otherwise</tt></dd></dl>
+ver:&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;pairs&nbsp;repeated&nbsp;marking-&nbsp;events&nbsp;fired&nbsp;between&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;two&nbsp;repetitions</tt></dd></dl>
  <dl><dt><a name="-verifica_ab"><strong>verifica_ab</strong></a>(net, m, e)</dt><dd><tt>Given&nbsp;a&nbsp;transition,&nbsp;check&nbsp;if&nbsp;it&nbsp;is&nbsp;enabled&nbsp;in&nbsp;a&nbsp;certain&nbsp;marking.<br>
 &nbsp;<br>
 Parameters<br>
@@ -344,7 +354,7 @@ Returns<br>
 -------<br>
 bool<br>
 &nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;'e'&nbsp;is&nbsp;enabled&nbsp;in&nbsp;'m',&nbsp;False&nbsp;otherwise</tt></dd></dl>
- <dl><dt><a name="-visualizza_strategia"><strong>visualizza_strategia</strong></a>(st, m)</dt><dd><tt>From&nbsp;the&nbsp;incidence&nbsp;matrix&nbsp;to&nbsp;the&nbsp;name&nbsp;in&nbsp;the&nbsp;.ndr&nbsp;file.&nbsp;<br>
+ <dl><dt><a name="-visualizza_strategia"><strong>visualizza_strategia</strong></a>(elenco, m)</dt><dd><tt>From&nbsp;the&nbsp;incidence&nbsp;matrix&nbsp;to&nbsp;the&nbsp;name&nbsp;in&nbsp;the&nbsp;.ndr&nbsp;file.&nbsp;<br>
 &nbsp;<br>
 This&nbsp;function&nbsp;takes&nbsp;the&nbsp;strategy&nbsp;in&nbsp;which&nbsp;places&nbsp;and&nbsp;transitions&nbsp;<br>
 are&nbsp;described&nbsp;with&nbsp;the&nbsp;numers&nbsp;of&nbsp;rows&nbsp;and&nbsp;columns&nbsp;in&nbsp;the&nbsp;incidence&nbsp;<br>
